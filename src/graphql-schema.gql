@@ -1,0 +1,71 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Tweet {
+  id: Float!
+  content: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  userId: Float!
+  user: User!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type UserFollowingEntity {
+  id: Float!
+  followerId: Float!
+  followeeId: Float!
+}
+
+type User {
+  id: Float!
+  name: String!
+  email: String!
+  password: String!
+  tweets: [Tweet!]
+  followers: [User!]
+  follwing: [User!]
+}
+
+type UserToken {
+  token: String!
+}
+
+type Query {
+  findAllUsers(page: Float!): [User!]!
+  findUserTweets: User!
+  getuserfolllwers: User!
+  getuserfolllwing: User!
+  findAllTweets(page: Float!): [Tweet!]!
+}
+
+type Mutation {
+  followUser(followCreateDto: FollowCreateDto!): UserFollowingEntity!
+  createTweet(createTweetInputs: CreateTweetDto!): Tweet!
+  register(user: UserCreateDto!): UserToken!
+  login(user: UserLoginDto!): UserToken!
+}
+
+input FollowCreateDto {
+  followeeId: Float!
+}
+
+input CreateTweetDto {
+  content: String!
+}
+
+input UserCreateDto {
+  name: String!
+  email: String!
+  password: String!
+}
+
+input UserLoginDto {
+  email: String!
+  password: String!
+}
